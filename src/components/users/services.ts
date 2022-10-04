@@ -11,14 +11,57 @@ const users: User[] = [
 ]
 
 const UserService = {
-    getUser: (id: number)=> {
+    getUser: (id: number) => {
         const index = users.findIndex((item) => item.id === id);
-        if(index>=0) {
+        if (index >= 0) {
             return users[index]
         } else {
             return false
         }
-    }
+    },
+    addUser: (newUser: User) => {
+        newUser.id = users.length + 1;
+        users.push(newUser);
+        return newUser.id;
+    },
+    deleteUser: (uid: number) => {
+        const index = users.findIndex((u) => u.id === uid);
+        if (index >= 0) {
+            users.splice(index, 1);
+            return true;
+        } else {
+            return false
+        }
+    },
+    updateUser: (uid: number, name: string, genderID: string, bio: string, email: string, password: string, profileImageUrl: string, website: string) =>{
+        const index = users.findIndex((u) => u.id === uid);
+        if (index < 0) {
+           return false
+        } else {
+            if (name) {
+                users[index].name = name;
+            }
+            if (genderID) {
+                users[index].genderID = parseInt(genderID);
+            }
+            if (email) {
+                users[index].email = email;
+            }
+            if (password) {
+                users[index].password = password;
+            }
+            if (profileImageUrl) {
+                users[index].profileImageUrl = profileImageUrl;
+            }
+            if (website) {
+                users[index].website = website;
+            }
+            if (bio) {
+                users[index].bio = bio;
+            }
+            return true;
+        }
+}
 }
 
 export default UserService;

@@ -1,7 +1,7 @@
 interface User {
     name: string;
     username: string;
-    id: number;
+    id?: number;
     website?: string;
     genderID: number;
     bio: string;
