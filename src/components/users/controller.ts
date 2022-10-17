@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import User from "./interfaces";
 import UserService from "./services";
+import authServices from "../auth/services";
 
 const UserController = {
     greeting: (req: Request, res: Response) => {
@@ -20,13 +21,15 @@ const UserController = {
             })
         }
     },
-    addUser: (req: Request, res: Response) => {
-        const {name, username, genderID, bio} = req.body;
+    addUser:async (req: Request, res: Response) => {
+        const {name, username, genderID, bio, password} = req.body;
+        const hashedPassword = await authServices.hash(password);
         const newUser: User = {
             name,
             username,
             genderID,
             bio,
+            password: hashedPassword,
         };
         const id = UserService.addUser(newUser);
         res.status(201).json({
@@ -66,5 +69,28 @@ const UserController = {
             });
         }
     },
+    login: async (req: Request, res: Response) => {
+        const {username, password} = req.body;
+        const user = UserService.getUserbyUsername(username);
+        if (user) {
+            const passwordControl = await authServices.compare(password, user.password);
+            if (!passwordControl) {
+                res.status(401).json({
+                    success: false,
+                    message: `Wrong credentials`,
+                });
+            } else {
+                res.status(200).json({
+                    success: true,
+                    message: `OK`,
+                });
+            }
+        } else {
+            res.status(401).json({
+                success: false,
+                message: `Wrong credentials`,
+            });
+        }
+    }
 }
 export default UserController;

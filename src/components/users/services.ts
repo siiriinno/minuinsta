@@ -7,6 +7,7 @@ const users: User[] = [
         id: 1,
         genderID: 2,
         bio: "blääblää",
+        password: "gxfgdfgfg"
     }
 ]
 
@@ -17,6 +18,12 @@ const UserService = {
             return users[index]
         } else {
             return false
+        }
+    },
+    getUserbyUsername: (username: string) => {
+        const index = users.findIndex((item) => item.username === username);
+        if (index >= 0) {
+            return users[index]
         }
     },
     addUser: (newUser: User) => {

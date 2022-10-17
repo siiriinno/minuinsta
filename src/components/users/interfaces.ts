@@ -7,7 +7,7 @@ interface User {
     bio: string;
     email?: string;
     creationTime?: string;
-    password?: string;
+    password: string;
     profileImageUrl?: string;
 }
 

@@ -1,10 +1,12 @@
 TLÜ Haapsalu Kolledži õppeaine Programmeerimine II raames loodud Wordpressi teema
 
+//rakenduse sisu kohta rohkem kirjutada - milleks seda kasutatajse ja mida teeb
 
-Loodud kasutades:
+
+### Loodud kasutades:
 Node.js, Express
 
-Ülesehitus
+### Ülesehitus
  1. `index.ts`
  2. `/components/users` kasutajad
  3. `/components/posts` postitused
@@ -13,24 +15,24 @@ Node.js, Express
  6. `/components/comments` kommentaarid
 
 
-Seadistamine
+### Seadistamine
  - Klooni repo https://github.com/siiriinno/minuinsta
  - Paigalda sõltuvused nmp install
  - Käivita käsuga `nmp start`
 
-API endpoints
-User
+### API endpoints
+#### User
 1. `GET/users/:id` kasutaja profiil
 2. `POST/users/:id` kasutaja loomine
 3. `PUT/users/:id` kasutaja muutmine
 3. `DELETE/users/:id` kasutaja kustutamine
 
-Post
+#### Post
 1. `GET/posts/:id` postituse id
 2. `POST/posts/:id` kasutaja loomine
 3. `DELETE/posts/:id` postituse kustutamine
 
-Like
+#### Like
 1. `GET/likes/:id` like id
 2. `POST/likes/:id` like loomine
 3. `DELETE/likes/:id` like kustutamine
