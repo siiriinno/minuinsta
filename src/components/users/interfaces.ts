@@ -9,6 +9,7 @@ interface User {
     creationTime?: string;
     password: string;
     profileImageUrl?: string;
+    role: string;
 }
 
 export default User;

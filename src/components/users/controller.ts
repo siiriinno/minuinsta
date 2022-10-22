@@ -30,6 +30,7 @@ const UserController = {
             genderID,
             bio,
             password: hashedPassword,
+            role: ""
         };
         const id = UserService.addUser(newUser);
         res.status(201).json({
@@ -80,9 +81,12 @@ const UserController = {
                     message: `Wrong credentials`,
                 });
             } else {
+                // lisad jwt
+                const token = await authServices.sign(user);
                 res.status(200).json({
                     success: true,
-                    message: `OK`,
+                    message: 'token',
+                    token,
                 });
             }
         } else {

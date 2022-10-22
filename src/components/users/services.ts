@@ -7,7 +7,8 @@ const users: User[] = [
         id: 1,
         genderID: 2,
         bio: "blääblää",
-        password: "gxfgdfgfg"
+        password: "$2b$10$ht4w63xC0scNdLaVCuHpfelJpbzMXT0y432sfy53Gu4CXPL4uTgf6",
+        role: "Admin"
     }
 ]
 
