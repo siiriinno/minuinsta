@@ -14,11 +14,11 @@ const authServices = {
     },
     sign: async (user: User) : Promise<string> => {
         const payload = {
-            id: user.id,
-            email: user.email,
-            //role: user.role,
+            id: user.ID,
+            username: user.Username,
+            role: user.Role,
         };
-        return await jwt.sign(payload, jwtSecret, {expiresIn: '2h'});
+        return jwt.sign(payload, jwtSecret, {expiresIn: '2h'});
     },
     verify: async (token: string) => {
         const decoded = await jwt.verify(token, jwtSecret);

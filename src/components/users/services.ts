@@ -1,75 +1,82 @@
 import User from "./interfaces";
-
-const users: User[] = [
-    {
-        name: "Mati",
-        username: "Muru",
-        id: 1,
-        genderID: 2,
-        bio: "blääblää",
-        password: "$2b$10$ht4w63xC0scNdLaVCuHpfelJpbzMXT0y432sfy53Gu4CXPL4uTgf6",
-        role: "Admin"
-    }
-]
+import DB from "../../database";
 
 const UserService = {
-    getUser: (id: number) => {
-        const index = users.findIndex((item) => item.id === id);
-        if (index >= 0) {
-            return users[index]
-        } else {
-            return false
+    getUser: async (id: number) => {
+        const users = await DB.query("select * from Insta_User where ID=?", [id])
+        //const index = users.findIndex((item) => item.id === id);
+        //if (index >= 0) {
+        if (users) {
+            return users[0]
         }
+        //} else {
+        //    return false
+        //}
     },
-    getUserbyUsername: (username: string) => {
-        const index = users.findIndex((item) => item.username === username);
-        if (index >= 0) {
-            return users[index]
+    getUserbyUsername: async (username: string) => {
+        const users = await DB.query("select * from Insta_User where Username=?", [username])
+        if (users) {
+            return users[0]
         }
+        //const index = users.findIndex((item) => item.username === username);
+        //if (index >= 0) {
+        //    return users[index]
+        //}
     },
-    addUser: (newUser: User) => {
-        newUser.id = users.length + 1;
-        users.push(newUser);
-        return newUser.id;
+    addUser: async (newUser: User) => {
+        //newUser.id = users.length + 1;
+        //users.push(newUser);
+        const result = await DB.query(
+            "insert into Insta_User (Username, Name, GenderID, Bio, Password, Role) values(?,?,?,?,?,?)",
+            [
+                newUser.Username,
+                newUser.Name,
+                newUser.GenderID,
+                newUser.Bio,
+                newUser.Password,
+                newUser.Role
+            ]
+        )
+        return result
+        //return newUser.id;
     },
-    deleteUser: (uid: number) => {
-        const index = users.findIndex((u) => u.id === uid);
-        if (index >= 0) {
-            users.splice(index, 1);
-            return true;
-        } else {
-            return false
+    deleteUser: async (uid: number) => {
+        const result = await DB.query("delete from Insta_User where ID=?", [uid])
+        return result.affectedRows !== 0;
+        //const index = users.findIndex((u) => u.id === uid);
+        // if (index >= 0) {
+        //     users.splice(index, 1);
+        //     return true;
+        // } else {
+        //     return false
+        // }
+
+    },
+    updateUser: async (uid: number, name: string, genderID: string, bio: string, email: string, password: string, profileImageUrl: string, website: string) => {
+        let user = false
+        if (name) {
+            user = await DB.query("update Insta_User set Name=? where ID=?", [name, uid])
         }
-    },
-    updateUser: (uid: number, name: string, genderID: string, bio: string, email: string, password: string, profileImageUrl: string, website: string) =>{
-        const index = users.findIndex((u) => u.id === uid);
-        if (index < 0) {
-           return false
-        } else {
-            if (name) {
-                users[index].name = name;
-            }
-            if (genderID) {
-                users[index].genderID = parseInt(genderID);
-            }
-            if (email) {
-                users[index].email = email;
-            }
-            if (password) {
-                users[index].password = password;
-            }
-            if (profileImageUrl) {
-                users[index].profileImageUrl = profileImageUrl;
-            }
-            if (website) {
-                users[index].website = website;
-            }
-            if (bio) {
-                users[index].bio = bio;
-            }
-            return true;
+        if (genderID) {
+            user = await DB.query("update Insta_User set GenderID=? where ID=?", [genderID, uid])
         }
-}
+        if (email) {
+            user = await DB.query("update Insta_User set Email=? where ID=?", [email, uid])
+        }
+        if (password) {
+            user = await DB.query("update Insta_User set Password=? where ID=?", [password, uid])
+        }
+        if (profileImageUrl) {
+            user = await DB.query("update Insta_User set ProgileImageUrl=? where ID=?", [profileImageUrl, uid])
+        }
+        if (website) {
+            user = await DB.query("update Insta_User set Website=? where ID=?", [website, uid])
+        }
+        if (bio) {
+            user = await DB.query("update Insta_User set Bio=? where ID=?", [bio, uid])
+        }
+        return user;
+    }
 }
 
 export default UserService;

@@ -1,15 +1,15 @@
 interface User {
-    name: string;
-    username: string;
-    id?: number;
-    website?: string;
-    genderID: number;
-    bio: string;
-    email?: string;
-    creationTime?: string;
-    password: string;
-    profileImageUrl?: string;
-    role: string;
+    Name: string;
+    Username: string;
+    ID?: number;
+    Website?: string;
+    GenderID: number;
+    Bio: string;
+    Email?: string;
+    CreationTime?: string;
+    Password: string;
+    ProfileImageUrl?: string;
+    Role: number;
 }
 
 export default User;

@@ -10,5 +10,5 @@ usersRoutes
     .put("/:id", UserMiddleware.checkUpdateUserData, authMiddleware.isAdmin, UserController.changeUser)
     .get("/:id", UserController.getUser)
     .delete("/:id", authMiddleware.isAdmin, UserController.deleteUser )
-    .post("/users", UserMiddleware.checkNewUserData, UserController.addUser)
+    .post("/", UserMiddleware.checkNewUserData, UserController.addUser)
 export default usersRoutes;
