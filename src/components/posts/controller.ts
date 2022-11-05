@@ -41,7 +41,17 @@ const PostController = {
                 message: "Postitust ei saanud lisada"
             })
         }
-    }
+    },
+    getLatest: async (req: Request, res: Response) => {
+       const posts = await PostService.getLatest(19); // res.locals.user.id
+        if (posts) {
+            res.status(200).json(posts);
+        } else {
+            res.status(404).json({
+                message: "Postitusi ei leitud"
+            })
+        }
+    },
 }
 
 export default PostController

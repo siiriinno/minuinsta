@@ -5,6 +5,7 @@ import authMiddleware from "../auth/authMiddleware";
 const postsRoutes = express.Router();
 
 postsRoutes
+    .get("/latest", PostController.getLatest)
     .get("/:id", PostController.getPost)
     .post("/", PostController.addPost)
     .delete("/:id", authMiddleware.isAdmin, PostController.deletePost );

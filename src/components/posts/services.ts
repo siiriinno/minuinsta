@@ -34,6 +34,18 @@ const PostService = {
             "insert into Insta_Post (LocationName, userid) values(?,?)",
             [locationName, userid]
         )
+    },
+    getLatest: async (userid: number) => {
+        const posts = await DB.query(`
+            select Insta_Post.*
+            from Insta_Following
+                     join Insta_Post on Insta_Post.UserID = Insta_Following.FollowerUserID
+            where FollowerUserID = ?`, [userid])
+        if (posts) {
+            return posts
+        } else {
+            return false
+        }
     }
 }
 
