@@ -6,7 +6,7 @@ const likesRoutes = express.Router();
 
 likesRoutes
     .get("/:id", LikeController.getLike)
-    .post("/", LikeController.addLike)
+    .post("/:id", LikeController.addLike)
     .delete("/:id", authMiddleware.isAdmin, LikeController.deleteLike);
 
 export default likesRoutes

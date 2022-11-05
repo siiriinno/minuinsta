@@ -2,9 +2,9 @@ import {Request, Response} from "express";
 import PostService from "../posts/services";
 
 const PostController = {
-    getPost: (req: Request, res: Response) => {
+    getPost: async (req: Request, res: Response) => {
         const postid = +req.params.id;
-        const post = PostService.getPost(postid);
+        const post = await PostService.getPost(postid);
         if (post) {
             res.status(200).json(post);
         } else {
@@ -13,9 +13,9 @@ const PostController = {
             })
         }
     },
-    deletePost: (req: Request, res: Response) => {
+    deletePost: async (req: Request, res: Response) => {
         const postid = +req.params.id;
-        const result = PostService.deletePost(postid);
+        const result = await PostService.deletePost(postid);
         if (result) {
             res.status(200).json({
                 message: "Postitus on kustutatud"
@@ -26,13 +26,16 @@ const PostController = {
             })
         }
     },
-    addPost: (req: Request, res: Response) => {
-        const {userID, locationName} = req.body
-        const status = PostService.addPost(userID, locationName);
-        if (status) {
+    addPost: async (req: Request, res: Response) => {
+        const {locationName} = req.body
+        const status = await PostService.addPost(res.locals.user.id, locationName);
+
+        if (status.affectedRows === 1) {
             res.status(201).json({
-                message: "Postitus on lisatud"
-            })
+                success: true,
+                message: `Postitus koos id ${status.insertId} on lisatud`,
+            });
+
         } else {
             res.status(404).json({
                 message: "Postitust ei saanud lisada"

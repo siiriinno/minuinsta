@@ -38,7 +38,7 @@ const UserController = {
 
         res.status(201).json({
             success: true,
-            message: `User with id ${tmp.insertId} created`,
+            message: `Kasutaja id-ga ${tmp.insertId} on loodud`,
         });
     },
     changeUser: async (req: Request, res: Response) => {
@@ -48,12 +48,12 @@ const UserController = {
         if (result && result.affectedRows) {
             res.status(200).json({
                 success: true,
-                message: `User with id ${uid} updated`,
+                message: `Kasutaja id-ga ${uid} on uuendatud`,
             });
         } else {
             res.status(404).json({
                 success: false,
-                message: "User not found",
+                message: "Kasutajat ei leitud",
             });
         }
     },

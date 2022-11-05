@@ -8,10 +8,9 @@ const UserService = {
         //if (index >= 0) {
         if (users) {
             return users[0]
+        } else {
+            return false
         }
-        //} else {
-        //    return false
-        //}
     },
     getUserbyUsername: async (username: string) => {
         const users = await DB.query("select * from Insta_User where Username=?", [username])

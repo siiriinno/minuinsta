@@ -1,44 +1,43 @@
-import Like from "./interfaces";
-
-
-
-const likes: Like[] = [
-    {
-        userID: 1,
-        id: 1,
-        postID: 1,
-        creationTime: "2022-09-25 21:10:22"
-    }
-]
+import DB from "../../database";
 
 const LikeService = {
-    getLike: (likeid: number) => {
-        const index = likes.findIndex((p) => p.id === likeid);
-        if (index >= 0) {
-            return likes[index]
+    getLike: async (postid: number) => {
+        const likes = await DB.query("select count(UserID) as likes from Insta_Liking where PostID=?", [postid])
+        //const index = likes.findIndex((p) => p.id === likeid);
+        if (likes) {
+            return likes[0]['likes']
         } else {
-            return false
+            return 0
         }
     },
-    deleteLike: (likeid: number) => {
-        const index = likes.findIndex((p) => p.id === likeid);
-        if (index >= 0) {
+    deleteLike: async (postid: number, userid: number) => {
+        const result = await DB.query("delete from Insta_Liking where PostID=? and UserId=?", [postid, userid])
+        return result.affectedRows !== 0;
+
+        //const index = likes.findIndex((p) => p.id === likeid);
+        /*if (index >= 0) {
             likes.splice(index, 1);
             return true;
         } else {
             return false;
-        }
+        }*/
     },
-    addLike: (postid: number, userid: number, creationTime: string) => {
-        const newID = likes.length+1;
+    addLike: async (postid: number, userid: number) => {
+        return await DB.query(
+            "insert into Insta_Liking (PostID, UserID) values(?,?)",
+            [
+                postid, userid
+            ]
+        )
+        /*const newID = likes.length+1;
         const newLike: Like = {
             creationTime,
             postID: postid,
             userID: userid,
             id: newID
-        }
-        likes.push(newLike);
-        return true;
+        }*/
+        //likes.push(newLike);
+        //return true;
     }
 }
 export default LikeService;
