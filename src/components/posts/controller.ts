@@ -27,8 +27,8 @@ const PostController = {
         }
     },
     addPost: async (req: Request, res: Response) => {
-        const {locationName} = req.body
-        const status = await PostService.addPost(res.locals.user.id, locationName);
+        const {title, content} = req.body
+        const status = await PostService.addPost(res.locals.user.id, title, content);
 
         if (status.affectedRows === 1) {
             res.status(201).json({
@@ -43,7 +43,7 @@ const PostController = {
         }
     },
     getLatest: async (req: Request, res: Response) => {
-       const posts = await PostService.getLatest(19); // res.locals.user.id
+       const posts = await PostService.getLatest(res.locals.user.id); //
         if (posts) {
             res.status(200).json(posts);
         } else {

@@ -90,6 +90,7 @@ const UserController = {
                 res.status(200).json({
                     success: true,
                     message: 'token',
+                    uid: user.ID,
                     token,
                 });
             }
@@ -99,6 +100,38 @@ const UserController = {
                 message: `Wrong credentials`,
             });
         }
-    }
+    },
+    unFollowUser: async (req: Request, res: Response) => {
+        const uid = parseInt(req.params.id);
+        const result = await UserService.unFollow(res.locals.user.id, uid);
+
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: `Jälgimist ei leitud`,
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                message: `Jälgimine lõpetatud`,
+            });
+        }
+    },
+    followUser: async (req: Request, res: Response) => {
+        const uid = parseInt(req.params.id);
+        const result = await UserService.follow(res.locals.user.id, uid);
+
+        if (!result) {
+            res.status(404).json({
+                success: false,
+                message: `Jälgimist ei leitud`,
+            });
+        } else {
+            res.status(201).json({
+                success: true,
+                message: `Jälgimine lisatud`,
+            });
+        }
+    },
 }
 export default UserController;

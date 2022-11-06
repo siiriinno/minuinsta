@@ -21,7 +21,7 @@ const PostService = {
             return false;
         }*/
     },
-    addPost: async (userid: number, locationName: string) => {
+    addPost: async (userid: number, title: string, content: string) => {
         //const newID = posts.length+1;
         /*const newPost: Post = {
             locationName,
@@ -31,16 +31,19 @@ const PostService = {
         posts.push(newPost);
         return true;*/
         return await DB.query(
-            "insert into Insta_Post (LocationName, userid) values(?,?)",
-            [locationName, userid]
+            "insert into Insta_Post (userid, Title, Content) values(?,?,?)",
+            [userid, title, content]
         )
     },
     getLatest: async (userid: number) => {
         const posts = await DB.query(`
-            select Insta_Post.*
+            select Insta_Post.*, IU.Name, IU.Username, IU.ProfileImageUrl, true as Follow, count(IL.UserID) as Likes
             from Insta_Following
-                     join Insta_Post on Insta_Post.UserID = Insta_Following.FollowerUserID
-            where FollowerUserID = ?`, [userid])
+                     join Insta_Post on Insta_Post.UserID = Insta_Following.FolloweeUserID
+                     join Insta_User IU on IU.ID = Insta_Post.UserID
+                     left join Insta_Liking IL on Insta_Post.ID = IL.PostID
+            where FollowerUserID = ?
+            group by Insta_Post.ID`, [userid])
         if (posts) {
             return posts
         } else {

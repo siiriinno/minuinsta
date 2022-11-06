@@ -75,7 +75,15 @@ const UserService = {
             user = await DB.query("update Insta_User set Bio=? where ID=?", [bio, uid])
         }
         return user;
-    }
+    },
+    unFollow: async (followerId: number, followeeId: number) => {
+        const result = await DB.query("delete from Insta_Following where FollowerUserID=? and FolloweeUserID=?", [followerId, followeeId])
+        return result.affectedRows !== 0;
+    },
+    follow: async (followerId: number, followeeId: number) => {
+        const result = await DB.query("insert into Insta_Following (FollowerUserID, FolloweeUserID) values (?,?)", [followerId, followeeId])
+        return result.affectedRows !== 0;
+    },
 }
 
 export default UserService;
