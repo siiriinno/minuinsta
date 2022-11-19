@@ -8,5 +8,4 @@ likesRoutes
     .get("/:id", LikeController.getLike)
     .post("/:id", LikeController.addLike)
     .delete("/:id", authMiddleware.isAdmin, LikeController.deleteLike);
-
 export default likesRoutes
