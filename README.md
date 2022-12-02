@@ -1,20 +1,19 @@
 TLÜ Haapsalu Kolledži õppeaine Programmeerimine II raames loodud Wordpressi teema
 
-//rakenduse sisu kohta rohkem kirjutada - milleks seda kasutatajse ja mida teeb
-
+See on Twitterilaadse rakenduse API, sellega saab kasutajaid lisada, muuta ja 
+kustutada, postitusi lisada, muuta ja kustutada, meeldimisi lisada ja kustutada, 
+jälgida teisi kasutajaid, jälgimist lõpetada ja sisse logida ja jälgitavate 
+viimaseid postitusi vaadata.
 
 ### Loodud kasutades:
 Node.js, Express
 
 ### Ülesehitus
  1. `index.ts`
- 2. `/components/users` kasutajad
+ 2. `/components/users` kasutajad, jälgijad
  3. `/components/posts` postitused
- 4. `/components/likes` laigid
- 5. `/components/followers` jälgijad
- 6. `/components/comments` kommentaarid
-
-
+ 4. `/components/likes` meeldimised
+ 
 ### Seadistamine
  - Klooni repo https://github.com/siiriinno/minuinsta
  - Paigalda sõltuvused nmp install
@@ -43,7 +42,6 @@ Node.js, Express
 
 #### Login
 1. `POST/login/` sisselogimine
-
 
 Kontakt
 Siiri Inno - siirii@tlu.ee
