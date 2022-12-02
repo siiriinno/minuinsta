@@ -13,11 +13,10 @@ const pool = mysql.createPool({
 }).promise();
 
 export default pool;*/
-
 import config from "./apiConfig";
 import MariaDBService from "mariadb";
-
-const pool = MariaDBService.createPool({
+//loon andmebaasiga ühenduse
+const pool = MariaDBService.createPool({ //ühenduste võimalus kasutajate limiidiga; andmed, mida on ühenduseks vaja
   host: config.db.host,
   user: config.db.user,
   password: config.db.password,
@@ -27,13 +26,13 @@ const pool = MariaDBService.createPool({
 });
 
 const DB = {
-  query: async (sql: string, params?: Array<number | string>) => {
+  query: async (sql: string, params?: Array<number | string>) => { //andmebaasist päringu funktsioon - päringu lause, päringu parameetrid - list ja nr või text
     let conn;
     try {
-      conn = await pool.getConnection();
-      return await conn.query(sql, params).finally(() => {});
-    } finally {
-      if (conn) conn.release().finally(() => {}); // release to pool
+      conn = await pool.getConnection();//andmebaasiga ühendus
+      return await conn.query(sql, params).finally(() => {}); //tagastab päringu tulemused, päring tehakse ühenduse sees
+    } finally { //ootamisega funktsioon, lõpetab andmebaasi ühenduse
+      if (conn) conn.release().finally(() => {}); // vabastab ühenduse
     }
   },
 };

@@ -8,7 +8,7 @@ const adminUser = {
     password: 'test',
 };
 
-describe('Users controller', () => {
+describe('Users controller', () => { //testid kasutaja endpointide kontrolliks
     describe('GET /users/:id', () => {
         it('responds with object and statusCode 200', async () => {
             const login = await request(app).post('/login').send(adminUser);
@@ -17,8 +17,20 @@ describe('Users controller', () => {
             expect(response.body).to.be.a('object');
             expect(response.statusCode).to.equal(200);
         });
+        it('responds with object and statusCode 404', async () => {
+            const login = await request(app).post('/login').send(adminUser);
+            const token = login.body.token;
+            const response = await request(app).get('/users/-19').set('Authorization', `Bearer ${token}`);
+            expect(response.body).to.be.a('object');
+            expect(response.statusCode).to.equal(404);
+        });
+        it('sisselogimata kasutaja test ja statusCode 401', async () => {
+            const response = await request(app).get('/users/19');
+            expect(response.body).to.be.a('object');
+            expect(response.statusCode).to.equal(401);
+        });
     });
-    describe('POST /users/following', () => {
+    describe('Kasutajate jälgimine', () => { //testid jälgitavate kontrolliks
         it('responds with message and statusCode 201', async () => {
             const login = await request(app).post('/login').send(adminUser);
             const token = login.body.token;
@@ -26,8 +38,6 @@ describe('Users controller', () => {
             expect(response.body).to.be.a('object');
             expect(response.statusCode).to.equal(201);
         });
-    });
-    describe('DELETE /users/following', () => {
         it('responds with message and statusCode 200', async () => {
             const login = await request(app).post('/login').send(adminUser);
             const token = login.body.token;
@@ -36,7 +46,7 @@ describe('Users controller', () => {
             expect(response.statusCode).to.equal(200);
         });
     });
-    describe('PUT /users/:id', () => {
+    describe('PUT /users/:id', () => { //kasutajate muutmise testimine
         it('responds with message and statusCode 200', async () => {
             const login = await request(app).post('/login').send(adminUser);
             const token = login.body.token;
@@ -50,7 +60,7 @@ describe('Users controller', () => {
             expect(response.statusCode).to.equal(200);
         });
     });
-    describe('POST /users/', () => {
+    describe('POST /users/', () => {  //kasutajate lisamise test
         it('responds with message and statusCode 201', async () => {
             const login = await request(app).post('/login').send(adminUser);
             const token = login.body.token;

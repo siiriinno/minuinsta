@@ -42,14 +42,6 @@ const UserService = {
     deleteUser: async (uid: number) => {
         const result = await DB.query("delete from Insta_User where ID=?", [uid])
         return result.affectedRows !== 0;
-        //const index = users.findIndex((u) => u.id === uid);
-        // if (index >= 0) {
-        //     users.splice(index, 1);
-        //     return true;
-        // } else {
-        //     return false
-        // }
-
     },
     updateUser: async (uid: number, name: string, genderID: string, bio: string, email: string, password: string, profileImageUrl: string, website: string) => {
         let user = false
@@ -76,10 +68,10 @@ const UserService = {
         }
         return user;
     },
-    unFollow: async (followerId: number, followeeId: number) => {
+    unFollow: async (followerId: number, followeeId: number) => { //ootab kahte numbrit- jälgija ja jälgitava oma
         const result = await DB.query("delete from Insta_Following where FollowerUserID=? and FolloweeUserID=?", [followerId, followeeId])
-        return result.affectedRows !== 0;
-    },
+        return result.affectedRows !== 0; //kustutab InstaF. tabelist vastavalt tingimustele etteantud parameetrid ja tagastab tõeväärtuse, kui muudeti rohkem, kui 0 rida
+    }, //kui tagastab affected ==0, siis ei kustutanud ühtegi rida
     follow: async (followerId: number, followeeId: number) => {
         const result = await DB.query("insert into Insta_Following (FollowerUserID, FolloweeUserID) values (?,?)", [followerId, followeeId])
         return result.affectedRows !== 0;

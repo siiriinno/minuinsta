@@ -8,15 +8,15 @@ import postsRoutes from "./components/posts/routes";
 import likesRoutes from "./components/likes/routes";
 
 const app = express();
-app.use(express.json());
-app.use(cors());
+app.use(express.json()); //middleware
+app.use(cors()); //veebiaadrssite lubamine, brauser nõuab seda, kust on lubatud API poole pöörduda
 
 app.get("/", UserController.greeting);
 app.post("/login", UserController.login);
 app.use(authMiddleware.isLoggedIn);
-app.use("/users", usersRoutes);
-app.use("/posts", postsRoutes);
-app.use("/likes", likesRoutes);
+app.use("/users", usersRoutes); //middleware
+app.use("/posts", postsRoutes); //middleware
+app.use("/likes", likesRoutes); //middleware
 
 export default app;
 

@@ -3,7 +3,6 @@ import User from "./interfaces";
 import UserService from "./services";
 import authServices from "../auth/services";
 
-
 const UserController = {
     greeting: (req: Request, res: Response) => {
         res.status(200).json({
@@ -75,18 +74,18 @@ const UserController = {
     },
     login: async (req: Request, res: Response) => {
         const {username, password} = req.body;
-        const user: User = await UserService.getUserbyUsername(username);
+        const user: User = await UserService.getUserbyUsername(username); //küsin kasutajanime järgi
         //console.log(user)
-        if (user) {
-            const passwordControl = await authServices.compare(password, user.Password);
-            if (!passwordControl) {
+        if (user) { //tingimus, kui kasutaja leitakse
+            const passwordControl = await authServices.compare(password, user.Password);//võrdlen sisestatud parooli hashitud parooliga
+            if (!passwordControl) { //tõeväärtus, pole tõene
                 res.status(401).json({
                     success: false,
                     message: `Wrong credentials`,
                 });
             } else {
                 // lisad jwt
-                const token = await authServices.sign(user);
+                const token = await authServices.sign(user);//tõeväärtus, on tõene
                 res.status(200).json({
                     success: true,
                     message: 'token',
@@ -101,17 +100,17 @@ const UserController = {
             });
         }
     },
-    unFollowUser: async (req: Request, res: Response) => {
-        const uid = parseInt(req.params.id);
-        const result = await UserService.unFollow(res.locals.user.id, uid);
-
+    unFollowUser: async (req: Request, res: Response) => { //controller ei suhtle andmebaasiga
+        const uid = parseInt(req.params.id); //üritab tekstist teha numbri
+        const result = await UserService.unFollow(res.locals.user.id, uid); //annan service.ts-le kaasa sisselog. kasutaja id ja
+                                                                            // tulevikus mittejälgitava kasutaja id
         if (!result) {
-            res.status(404).json({
+            res.status(404).json({ //töeväärtus, ei ole tõene
                 success: false,
                 message: `Jälgimist ei leitud`,
             });
         } else {
-            res.status(200).json({
+            res.status(200).json({ //tõeväärtus, on tõene
                 success: true,
                 message: `Jälgimine lõpetatud`,
             });

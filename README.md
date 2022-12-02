@@ -25,7 +25,11 @@ Node.js, Express
 1. `GET/users/:id` kasutaja profiil
 2. `POST/users/:id` kasutaja loomine
 3. `PUT/users/:id` kasutaja muutmine
-3. `DELETE/users/:id` kasutaja kustutamine
+4. `DELETE/users/:id` kasutaja kustutamine
+
+#### Following
+1. `POST/users/following/:id` jälgimise lisamine
+2. `DELETE/users/following/:id` jälgimise kustutamine
 
 #### Post
 1. `GET/posts/:id` postituse id
@@ -36,6 +40,10 @@ Node.js, Express
 1. `GET/likes/:id` like id
 2. `POST/likes/:id` like loomine
 3. `DELETE/likes/:id` like kustutamine
+
+#### Login
+1. `POST/login/` sisselogimine
+
 
 Kontakt
 Siiri Inno - siirii@tlu.ee

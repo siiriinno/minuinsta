@@ -10,10 +10,10 @@ const UserMiddleware = {
             res.status(401).json({status: false, message: "invalid data"})
         }
     },
-    checkUpdateUserData: (req: Request, res: Response, next: NextFunction) => {
+    checkUpdateUserData: (req: Request, res: Response, next: NextFunction) => { //võtan muutujad body seest välja
         const {name, genderID, bio, email, password, profileImageUrl, website} = req.body;
-        if (name || genderID || bio || email || password || profileImageUrl || website) {
-            next();
+        if (name || genderID || bio || email || password || profileImageUrl || website) { //kontrollib, kas andmed on olemas
+            next(); //kui vähemalt üks andmetest on olemas, siis middleware töö on tehtud ja annab teatepulga edasi
         } else {
             res.status(401).json({status: false, message: "invalid data"})
         }

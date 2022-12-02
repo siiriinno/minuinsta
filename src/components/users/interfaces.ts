@@ -1,4 +1,4 @@
-interface User {
+interface User { //kasutaja andmete tüübid
     Name: string;
     Username: string;
     ID?: number;
