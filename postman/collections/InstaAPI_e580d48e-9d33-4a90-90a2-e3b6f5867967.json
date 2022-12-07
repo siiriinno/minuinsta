@@ -13,18 +13,37 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2NDQ0Nzg3LCJleHAiOjE2NjY0NTE5ODd9.ikyCcq8p9UoD7mp40JQqAdtY7rLKylOqliJVmFSdKsw",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"Mari\",\r\n    \"password\" : \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:3000/users/1",
+					"raw": "http://localhost:3001/users/15",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"users",
-						"1"
+						"15"
 					]
 				}
 			},
@@ -36,7 +55,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/users/1",
+							"raw": "http://localhost:3000/users/52",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -44,7 +63,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"1"
+								"52"
 							]
 						}
 					},
@@ -446,55 +465,49 @@
 			]
 		},
 		{
-			"name": "Add new post",
-			"id": "ec9a41ee-0b6c-48a1-b37b-26653dbca7fe",
+			"name": "GET latest posts",
+			"id": "08add00b-7ae1-4af5-9654-471615116639",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"userID\": 1,\r\n    \"locationName\": \"Tartu\"\r\n}"
-				},
 				"url": {
-					"raw": "http://localhost:3000/posts",
+					"raw": "http://localhost:3000/posts/latest",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"posts"
+						"posts",
+						"latest"
 					]
 				}
 			},
 			"response": [
 				{
-					"id": "f847af69-44a0-4315-b6ad-612eec16f921",
-					"name": "Add new post",
+					"id": "5f4d57bb-8054-4431-badf-1921b60e4770",
+					"name": "GET post by id",
 					"originalRequest": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userID\": 1,\r\n    \"locationName\": \"Tartu\"\r\n}"
-						},
 						"url": {
-							"raw": "http://localhost:3000/posts",
+							"raw": "http://localhost:3000/posts/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"posts"
+								"posts",
+								"1"
 							]
 						}
 					},
-					"status": "Created",
-					"code": 201,
+					"status": "OK",
+					"code": 200,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
@@ -507,15 +520,15 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "33"
+							"value": "82"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"21-Sghv6IqgZzw08kcqBVPIj7/tlm8\""
+							"value": "W/\"52-7/53pzydKfrgPe2tvGWa0u4mY6c\""
 						},
 						{
 							"key": "Date",
-							"value": "Tue, 11 Oct 2022 09:09:48 GMT"
+							"value": "Tue, 11 Oct 2022 09:06:06 GMT"
 						},
 						{
 							"key": "Connection",
@@ -528,7 +541,7 @@
 					],
 					"cookie": [],
 					"responseTime": null,
-					"body": "{\n    \"message\": \"Postitus on lisatud\"\n}"
+					"body": "{\n    \"userID\": 1,\n    \"id\": 1,\n    \"locationName\": \"Haapsalu\",\n    \"creationTime\": \"2022-09-25 21:10:22\"\n}"
 				}
 			]
 		},
@@ -691,6 +704,93 @@
 					"cookie": [],
 					"responseTime": null,
 					"body": "{\n    \"userID\": 1,\n    \"id\": 1,\n    \"postID\": 1,\n    \"creationTime\": \"2022-09-25 21:10:22\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add new post",
+			"id": "ec9a41ee-0b6c-48a1-b37b-26653dbca7fe",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userID\": 1,\r\n    \"locationName\": \"Tartu\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "f847af69-44a0-4315-b6ad-612eec16f921",
+					"name": "Add new post",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userID\": 1,\r\n    \"locationName\": \"Tartu\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "33"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"21-Sghv6IqgZzw08kcqBVPIj7/tlm8\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 11 Oct 2022 09:09:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"message\": \"Postitus on lisatud\"\n}"
 				}
 			]
 		},
@@ -861,6 +961,167 @@
 					"body": "{\n    \"message\": \"Laik on kustutatud\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Login",
+			"id": "57f32fef-2feb-476f-b195-fdaad337f39a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY2NDQ0Nzg3LCJleHAiOjE2NjY0NTE5ODd9.ikyCcq8p9UoD7mp40JQqAdtY7rLKylOqliJVmFSdKsw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Marikene\",\r\n    \"password\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "1fa64a94-0808-4efd-b13c-085ff39149ab",
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Marikene\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "236"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"ec-RREuocBCi4yJatTdc9wXEoVQu2E\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Dec 2022 18:21:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"success\": true,\n    \"message\": \"token\",\n    \"uid\": 202,\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAyLCJ1c2VybmFtZSI6Ik1hcmlrZW5lIiwicm9sZSI6MSwiaWF0IjoxNjY5OTE4ODgxLCJleHAiOjE2Njk5MjYwODF9.mCKRnqy5-JS5ln7nSfrkNdCgJsHHuAJCi44S4AHOZos\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add follower",
+			"id": "a6e6d2b2-d6c0-4c17-ac4b-b8ea5cbcffc4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/users/following/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"following",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete follower",
+			"id": "dfc87b05-5123-4405-8b9f-4ed1b5f7d284",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/users/following/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"following",
+						"15"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
