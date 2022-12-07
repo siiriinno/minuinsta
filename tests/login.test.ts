@@ -9,18 +9,18 @@ const adminUser = {
 };
 
 const wrongUser = {
-  email: 'wrong@wrong.ee',
+  username: 'wrong',
   password: 'wrongpassword',
 };
 
 describe('Login controller', () => {
   describe('POST /login', () => {
-    it('responds with errormessage and statusCode 404', async () => {
+    it('responds with errormessage and statusCode 401', async () => {
       const response = await request(app).post('/login').send(wrongUser);
       expect(response.body).to.be.a('object');
       expect(response.statusCode).to.equal(401);
       expect(response.body.success).to.be.false;
-      expect(response.body.message).to.equal('Token not found.');
+      expect(response.body.message).to.equal('Wrong credentials');
 
     });
     it('responds with etoken and statusCode 200', async () => {

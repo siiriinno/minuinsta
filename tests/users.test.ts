@@ -65,7 +65,7 @@ describe('Users controller', () => { //testid kasutaja endpointide kontrolliks
             const login = await request(app).post('/login').send(adminUser);
             const token = login.body.token;
             const response = await request(app)
-                .post("/users/")
+                .post("/users")
                 .set('Authorization', `Bearer ${token}`)
                 .send({
                     "name": "Mari",
