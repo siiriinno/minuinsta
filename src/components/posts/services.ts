@@ -36,16 +36,9 @@ const PostService = {
         )
     },
     getLatest: async (userid: number) => {
-        const posts = await DB.query(`
-            select Insta_Post.*, IU.Name, IU.Username, IU.ProfileImageUrl, true as Follow, count(IL.UserID) as Likes
-            from Insta_Following
-                     join Insta_Post on Insta_Post.UserID = Insta_Following.FolloweeUserID
-                     join Insta_User IU on IU.ID = Insta_Post.UserID
-                     left join Insta_Liking IL on Insta_Post.ID = IL.PostID
-            where FollowerUserID = ?
-            group by Insta_Post.ID`, [userid])
+        const posts = await DB.query(`call getLatest(?)`, [userid])
         if (posts) {
-            return posts
+            return posts[0]
         } else {
             return false
         }

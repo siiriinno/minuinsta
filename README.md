@@ -1,4 +1,4 @@
-TLÜ Haapsalu Kolledži õppeaine Programmeerimine II raames loodud Wordpressi teema
+TLÜ Haapsalu Kolledži õppeaine Programmeerimine II raames loodud projekt
 
 See on Twitterilaadse rakenduse API, sellega saab kasutajaid lisada, muuta ja 
 kustutada, postitusi lisada, muuta ja kustutada, meeldimisi lisada ja kustutada, 
@@ -31,9 +31,10 @@ Node.js, Express
 2. `DELETE/users/following/:id` jälgimise kustutamine
 
 #### Post
-1. `GET/posts/:id` postituse id
-2. `POST/posts/:id` kasutaja loomine
-3. `DELETE/posts/:id` postituse kustutamine
+1. `GET/posts//latest` viimased postitused
+2. `GET/posts/:id` postituse id
+3. `POST/posts/:id` kasutaja loomine
+4. `DELETE/posts/:id` postituse kustutamine
 
 #### Like
 1. `GET/likes/:id` like id
